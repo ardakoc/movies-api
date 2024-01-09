@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from configurations import Configuration, values
 from pathlib import Path
+from decouple import config
 
 
 class Dev(Configuration):
@@ -23,10 +24,10 @@ class Dev(Configuration):
     # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-&4!(1%#0*%wu%7#3ny8%+is&yjjkvrigtivh=p@aec)&7-0_01'
+    SECRET_KEY = config('SECRET_KEY')
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+    DEBUG = config('DEBUG', cast=bool)
 
     ALLOWED_HOSTS = []
 
@@ -154,3 +155,4 @@ class Dev(Configuration):
     # API Configurations
 
     API_URL = 'https://www.omdbapi.com/'
+    API_KEY = config('API_KEY')

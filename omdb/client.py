@@ -58,3 +58,18 @@ class OmdbMovie:
     def plot(self):
         self.check_for_detail_data_key('Plot')
         return self.data['Plot']
+    
+
+class OmbdClient:
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def make_request(self, params):
+        """
+        Make a GET request to the API.
+        """
+        params['apikey'] = self.api_key # Automatically add the api key to the params.
+
+        response = requests.get(OMDB_API_URL, params=params)
+        response.raise_for_status()
+        return response

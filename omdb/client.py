@@ -81,3 +81,31 @@ class OmbdClient:
         logger.info(f'Fetching detail for IMDB ID {imdb_id}')
         response = self.make_request({'i': imdb_id})
         return OmdbMovie(response.json())
+
+    def search(self, search):
+        """
+        Search for movies by title.
+
+        This is a generator so all results from all pages will be iterated across.
+        """
+        page = 1
+        seen_results = 0
+        total_results = None
+
+        logger.info(f'Performing a search for {search}')
+
+        while True:
+            logger.info(f'Fetching page {page}')
+            response = self.make_request({'s': search, 'type': 'movie', 'page': str(page)})
+            response_body = response.json()
+            if total_results is None:
+                total_results = int(response_body['totalResults'])
+
+            for movie in response_body['Search']:
+                seen_results += 1
+                yield OmdbMovie(movie)
+
+            if seen_results >= total_results:
+                break
+
+            page += 1

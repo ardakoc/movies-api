@@ -150,3 +150,7 @@ class Dev(Configuration):
             'level': 'DEBUG',
         },
     }
+
+    # API Configurations
+
+    API_URL = 'https://www.omdbapi.com/'

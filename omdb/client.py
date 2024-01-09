@@ -73,3 +73,11 @@ class OmbdClient:
         response = requests.get(OMDB_API_URL, params=params)
         response.raise_for_status()
         return response
+    
+    def get_by_imdb_id(self, imdb_id):
+        """
+        Get a movie by its IMDB ID.
+        """
+        logger.info(f'Fetching detail for IMDB ID {imdb_id}')
+        response = self.make_request({'i': imdb_id})
+        return OmdbMovie(response.json())

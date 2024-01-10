@@ -43,6 +43,8 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
 
         'movies',
+        
+        'django_celery_results'
     ]
 
     MIDDLEWARE = [
@@ -156,3 +158,8 @@ class Dev(Configuration):
 
     API_URL = 'https://www.omdbapi.com/'
     API_KEY = config('API_KEY')
+
+    # Celery Configurations
+
+    CELERY_RESULT_BACKEND = 'django-db'
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'

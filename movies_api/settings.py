@@ -44,7 +44,8 @@ class Dev(Configuration):
 
         'movies',
         
-        'django_celery_results'
+        'django_celery_results',
+        'django_celery_beat',
     ]
 
     MIDDLEWARE = [
